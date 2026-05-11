@@ -3,53 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RCS 200 Years Celebration Registration</title>
+    <title>RCS 200 Years Celebration</title>
     <style>
         :root {
-            --primary-red: #d32f2f;
+            --red: #c62828;
             --white: #ffffff;
-            --light-gray: #f4f4f4;
-            --dark-text: #333;
+            --bg: #f8f9fa;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--light-gray);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--bg);
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            color: var(--dark-text);
         }
 
         .container {
-            background-color: var(--white);
-            width: 90%;
-            max-width: 500px;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            border-top: 8px solid var(--primary-red);
-            margin: 20px 0;
+            background: var(--white);
+            width: 100%;
+            max-width: 450px;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border-top: 10px solid var(--red);
+            margin: 20px;
         }
 
-        header {
+        h1 {
+            color: var(--red);
             text-align: center;
-            margin-bottom: 30px;
-        }
-
-        header h1 {
-            color: var(--primary-red);
-            margin: 0;
-            font-size: 24px;
+            margin-bottom: 10px;
+            font-size: 28px;
             text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
-        header p {
-            margin-top: 10px;
-            font-weight: 500;
+        p.intro {
+            text-align: center;
+            color: #555;
+            margin-bottom: 30px;
+            font-size: 14px;
         }
 
         .form-group {
@@ -59,7 +54,8 @@
         label {
             display: block;
             margin-bottom: 8px;
-            font-weight: bold;
+            font-weight: 600;
+            color: #333;
         }
 
         input[type="text"],
@@ -68,140 +64,167 @@
         select {
             width: 100%;
             padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box; /* Ensures padding doesn't affect width */
-            font-size: 16px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: 0.3s;
+            box-sizing: border-box;
         }
 
-        .radio-group {
+        input:focus, select:focus {
+            border-color: var(--red);
+            outline: none;
+        }
+
+        .radio-options {
             display: flex;
             gap: 20px;
             margin-top: 5px;
         }
 
-        .radio-option {
+        .radio-item {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
+            cursor: pointer;
         }
 
         button {
             width: 100%;
             padding: 15px;
-            background-color: var(--primary-red);
+            background-color: var(--red);
             color: white;
             border: none;
-            border-radius: 5px;
-            font-size: 18px;
+            border-radius: 8px;
+            font-size: 17px;
             font-weight: bold;
             cursor: pointer;
-            transition: background 0.3s ease;
+            transition: transform 0.2s, background 0.3s;
         }
 
         button:hover {
-            background-color: #b71c1c;
+            background-color: #a51d1d;
+            transform: translateY(-2px);
         }
 
-        /* Success Message Styling */
-        #success-message {
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Success Message Area */
+        #response-section {
             display: none;
             text-align: center;
-            padding: 20px;
+            animation: fadeIn 0.5s ease-in-out;
         }
 
         .success-icon {
-            font-size: 50px;
-            color: #4CAF50;
-            margin-bottom: 10px;
+            font-size: 60px;
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div id="registration-form">
-        <header>
-            <h1>RCS 200 Years</h1>
-            <p>Bicentennial Celebration Registration</p>
-        </header>
-
-        <form id="rcsForm">
+    <!-- Registration Form Section -->
+    <div id="form-section">
+        <h1>RCS 200 Years</h1>
+        <p class="intro">Please fill out the form to join the celebration!</p>
+        
+        <form id="registrationForm">
             <div class="form-group">
-                <label for="name">Full Name</label>
-                <input type="text" id="name" placeholder="Enter your name" required>
+                <label>Full Name</label>
+                <input type="text" name="Name" placeholder="Enter your full name" required>
             </div>
 
             <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" placeholder="example@mail.com" required>
+                <label>Email Address</label>
+                <input type="email" name="Email" placeholder="yourname@gmail.com" required>
             </div>
 
             <div class="form-group">
-                <label>Status</label>
-                <div class="radio-group">
-                    <div class="radio-option">
-                        <input type="radio" id="alumnus" name="status" value="Alumnus" checked>
-                        <label for="alumnus" style="margin-bottom: 0; font-weight: normal;">Alumnus</label>
-                    </div>
-                    <div class="radio-option">
-                        <input type="radio" id="current" name="status" value="Current Student">
-                        <label for="current" style="margin-bottom: 0; font-weight: normal;">Current Student</label>
-                    </div>
+                <label>Are you an Alumnus or Current Student?</label>
+                <div class="radio-options">
+                    <label class="radio-item"><input type="radio" name="Status" value="Alumnus" checked> Alumnus</label>
+                    <label class="radio-item"><input type="radio" name="Status" value="Current Student"> Current Student</label>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="batch">Batch (Year)</label>
-                <select id="batch" required>
-                    <option value="" disabled selected>Select your batch</option>
-                    <!-- Script will populate years from 1955 to 2035 -->
+                <label>Batch Year</label>
+                <select name="Batch" id="batchSelect" required>
+                    <option value="" disabled selected>Select Year</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="whatsapp">WhatsApp Number</label>
-                <input type="tel" id="whatsapp" placeholder="+880..." required>
+                <label>WhatsApp Number</label>
+                <input type="tel" name="WhatsApp" placeholder="+880..." required>
             </div>
 
             <div class="form-group">
-                <label for="contact">Contact Number</label>
-                <input type="tel" id="contact" placeholder="Phone number" required>
+                <label>Contact Number</label>
+                <input type="tel" name="Contact" placeholder="Phone number" required>
             </div>
 
-            <button type="submit">Register Now</button>
+            <button type="submit" id="submitBtn">Register Now</button>
         </form>
     </div>
 
     <!-- Thank You Section -->
-    <div id="success-message">
+    <div id="response-section">
         <div class="success-icon">✓</div>
         <h2>Thank You!</h2>
-        <p>Your registration for the RCS 200 Years Celebration has been received.</p>
-        <p><strong>Our support team will email you soon and add you to our official WhatsApp group.</strong></p>
+        <p>Registration Successful.</p>
+        <p style="color: #666; line-height: 1.6;">
+            Our support team will email you soon and add you to our official WhatsApp group.
+        </p>
     </div>
 </div>
 
 <script>
-    // Populate Batch Dropdown
-    const batchSelect = document.getElementById('batch');
+    // 1. Automatically generate batch years 1955 to 2035
+    const batchDropdown = document.getElementById('batchSelect');
     for (let year = 1955; year <= 2035; year++) {
         let option = document.createElement('option');
         option.value = year;
         option.textContent = year;
-        batchSelect.appendChild(option);
+        batchDropdown.appendChild(option);
     }
 
-    // Form Submission Logic
-    document.getElementById('rcsForm').addEventListener('submit', function(e) {
+    // 2. Form Submission to Google Sheet
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxThxkRXrF-v8wIxgA3GJBTcFwPHP_6IF3OEtE5WqZgefH4cyIDCEP7UGZD-Jgnb5pQ/exec'; // <--- REPLACE THIS WITH YOUR URL
+    const form = document.getElementById('registrationForm');
+    const btn = document.getElementById('submitBtn');
+    const formSection = document.getElementById('form-section');
+    const responseSection = document.getElementById('response-section');
+
+    form.addEventListener('submit', e => {
         e.preventDefault();
-        
-        // Hide form and show success message
-        document.getElementById('registration-form').style.display = 'none';
-        document.getElementById('success-message').style.display = 'block';
-        
-        // In a real scenario, you would send this data to a server using fetch()
-        console.log("Form Submitted Successfully");
+        btn.disabled = true;
+        btn.innerHTML = "Processing...";
+
+        fetch(scriptURL, { 
+            method: 'POST', 
+            body: new FormData(form)
+        })
+        .then(response => {
+            formSection.style.display = 'none';
+            responseSection.style.display = 'block';
+        })
+        .catch(error => {
+            alert('Something went wrong. Please try again!');
+            btn.disabled = false;
+            btn.innerHTML = "Register Now";
+        });
     });
 </script>
 
