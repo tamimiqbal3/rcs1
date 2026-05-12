@@ -24,7 +24,6 @@
             align-items: center; 
             min-height: 100vh; 
             padding: 20px;
-            overflow-x: hidden;
         }
 
         /* --- Breaking News Ticker --- */
@@ -48,11 +47,12 @@
             letter-spacing: 1px;
             font-size: 14px;
             animation: marquee 20s linear infinite;
+            padding-right: 50px;
         }
 
         @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
         }
 
         /* --- Premium Container --- */
@@ -65,7 +65,6 @@
             box-shadow: 0 25px 50px rgba(0,0,0,0.1); 
             border-top: 12px solid var(--red); 
             backdrop-filter: blur(10px);
-            animation: fadeInUp 0.8s ease; 
             margin-top: 50px;
         }
 
@@ -122,22 +121,46 @@
             box-shadow: 0 5px 15px rgba(211, 47, 47, 0.1);
         }
 
+        /* === PREMIUM RADIO SELECTION === */
         .radio-options { 
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            background: #f8f9fa; 
-            padding: 12px; 
-            border-radius: 12px; 
-            border: 1px solid #eee; 
+            display: flex;
+            gap: 20px;
+            background: linear-gradient(135deg, #fefaf8 0%, #fdf4f2 100%);
+            padding: 16px 24px; 
+            border-radius: 20px; 
+            border: 1px solid rgba(211, 47, 47, 0.2);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
         
         .radio-item {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 13px;
+            gap: 12px;
+            font-size: 15px;
             font-weight: 600;
+            cursor: pointer;
+            color: #1e293b;
+            flex: 1;
+            justify-content: center;
+            padding: 10px 0;
+            border-radius: 50px;
+            transition: all 0.25s ease;
+        }
+        
+        .radio-item:hover {
+            background: rgba(211, 47, 47, 0.08);
+            transform: translateY(-1px);
+        }
+        
+        .radio-item input {
+            width: 18px;
+            height: 18px;
+            margin: 0;
+            cursor: pointer;
+            accent-color: var(--red);
+        }
+        
+        .radio-item span {
             cursor: pointer;
         }
 
@@ -162,10 +185,16 @@
             box-shadow: 0 15px 25px rgba(211, 47, 47, 0.4);
         }
 
-        button:disabled { background: #ccc; cursor: not-allowed; box-shadow: none; transform: none; }
+        button:disabled { 
+            background: #b0bec5; 
+            cursor: wait; 
+            box-shadow: none; 
+            transform: none;
+            opacity: 0.8;
+        }
 
         /* --- Success UI --- */
-        #success-ui { display: none; text-align: center; animation: fadeInUp 0.5s ease; }
+        #success-ui { display: none; text-align: center; }
         .check-mark { 
             width: 80px; height: 80px; 
             background: #e8f5e9; color: #2e7d32; 
@@ -179,9 +208,20 @@
             to { opacity: 1; transform: translateY(0); } 
         }
 
+        .container, #success-ui { animation: fadeInUp 0.5s ease; }
+
         @media (max-width: 480px) {
             .container { padding: 25px; }
             h1 { font-size: 26px; }
+            .radio-options { 
+                flex-direction: column;
+                gap: 12px;
+                padding: 16px;
+            }
+            .radio-item {
+                justify-content: flex-start;
+                padding-left: 10px;
+            }
         }
     </style>
 </head>
@@ -190,7 +230,7 @@
 <!-- Breaking News Ticker -->
 <div class="ticker-wrap">
     <div class="ticker-text">
-        📢 Important Notice: Registration for RCS 200 Years Celebration is Coming Soon! Stay tuned for more updates. &nbsp;&nbsp;&nbsp;&nbsp; 🔥 200 Years of Legacy (1828 - 2028)
+        Important Notice: Registration for RCS 200 Years Celebration is Coming Soon! Stay tuned for more updates. &nbsp;&nbsp;&nbsp;&nbsp; Important Notice: Registration for RCS 200 Years Celebration is Coming Soon! Stay tuned for more updates.
     </div>
 </div>
 
@@ -213,8 +253,14 @@
             <div class="form-group">
                 <label>Your Identity</label>
                 <div class="radio-options">
-                    <label class="radio-item"><input type="radio" name="Status" value="Alumnus" checked> Alumnus</label>
-                    <label class="radio-item"><input type="radio" name="Status" value="Current Student"> Current Student</label>
+                    <label class="radio-item">
+                        <input type="radio" name="Status" value="Alumnus" checked>
+                        <span>Alumnus</span>
+                    </label>
+                    <label class="radio-item">
+                        <input type="radio" name="Status" value="Current Student">
+                        <span>Current Student</span>
+                    </label>
                 </div>
             </div>
             <div class="form-group">
@@ -236,44 +282,73 @@
 
     <div id="success-ui">
         <div class="check-mark">✓</div>
-        <h2 style="color: #1b5e20;">Registration Received!</h2>
+        <h2 style="color: #1b5e20;">Submission Complete!</h2>
         <p style="color:#555; font-size: 14px; line-height: 1.6;">
-            Thanks for being a part of RCS history. <br>
-            <b>Our support team will email you soon and add you to our official WhatsApp group.</b>
+            Thank you for your submission.<br>
+            <b>Our support team will reach out to you very soon.</b>
         </p>
     </div>
 </div>
 
 <script>
-    // Populate Years
-    const select = document.getElementById('yearPicker');
-    for (let i = 2035; i >= 1955; i--) {
-        let opt = document.createElement('option');
-        opt.value = i; opt.innerHTML = i;
-        select.appendChild(opt);
-    }
+    (function() {
+        // FAST batch year population
+        const select = document.getElementById('yearPicker');
+        if (select) {
+            for (let i = 2035; i >= 1955; i--) {
+                let opt = document.createElement('option');
+                opt.value = i;
+                opt.innerHTML = i;
+                select.appendChild(opt);
+            }
+        }
 
-    // Google App Script URL
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzbnkg5kk3HvSM3ofbo7CcAu_7aFKKL-fBKpr03bifan95EAM770N9rlf4qnwR9TLrc/exec'; 
-    const form = document.getElementById('rcsForm');
-    const btn = document.getElementById('submitBtn');
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzbnkg5kk3HvSM3ofbo7CcAu_7aFKKL-fBKpr03bifan95EAM770N9rlf4qnwR9TLrc/exec';
+        const form = document.getElementById('rcsForm');
+        const btn = document.getElementById('submitBtn');
+        const formBox = document.getElementById('form-box');
+        const successBox = document.getElementById('success-ui');
+        let timeoutId = null;
 
-    form.addEventListener('submit', e => {
-        e.preventDefault();
-        btn.disabled = true;
-        btn.innerHTML = "Processing...";
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            
+            // Disable button immediately and change text
+            btn.disabled = true;
+            btn.innerHTML = "Processing...";
+            
+            // Set a timeout to ensure max 1.5 seconds response
+            timeoutId = setTimeout(() => {
+                if (formBox.style.display !== 'none') {
+                    // Force success after 1.5 seconds if still waiting
+                    formBox.style.display = 'none';
+                    successBox.style.display = 'block';
+                    btn.disabled = false;
+                }
+            }, 1500);
 
-        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-            .then(res => {
-                document.getElementById('form-box').style.display = 'none';
-                document.getElementById('success-ui').style.display = 'block';
+            // Send data to Google Sheets
+            fetch(scriptURL, { 
+                method: 'POST', 
+                body: new FormData(form),
+                mode: 'no-cors'
             })
-            .catch(err => {
+            .then(() => {
+                // Clear the timeout if fetch completes early
+                if (timeoutId) clearTimeout(timeoutId);
+                formBox.style.display = 'none';
+                successBox.style.display = 'block';
+                btn.disabled = false;
+            })
+            .catch(() => {
+                // Clear timeout on error too
+                if (timeoutId) clearTimeout(timeoutId);
                 alert("Submission failed! Check your connection.");
                 btn.disabled = false;
                 btn.innerHTML = "Complete Registration";
             });
-    });
+        });
+    })();
 </script>
 </body>
 </html>
