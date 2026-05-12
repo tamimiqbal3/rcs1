@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RCS</title>
-    <link href="https://script.google.com/macros/s/AKfycbxUaQ6RWFG0-_XpufyX9mbULf_LIOqNtRe90u5Ouhd1Co_z7MkgGVVgZh3QRpYZmgVYtA/exec" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root { 
             --red: #d32f2f; 
@@ -53,21 +53,12 @@
             letter-spacing: 1px;
             padding-right: 80px;
         }
-        
-        .ticker-text strong {
-            font-weight: 800;
-        }
 
         @keyframes tickerScroll {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%);
-            }
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
         
-        /* Hover pause - optional smooth */
         .ticker-wrap:hover .ticker-track {
             animation-play-state: paused;
         }
@@ -244,14 +235,14 @@
 </head>
 <body>
 
-<!-- FAST BREAKING NEWS TICKER - SMOOTH & INFINITE -->
+<!-- FAST BREAKING NEWS TICKER -->
 <div class="ticker-wrap">
     <div class="ticker-track">
         <div class="ticker-text">
-           🡲 ২০০ বছর পূর্তি উদযাপন কমিটির চূড়ান্তকরণ ও ঈদ পুনর্মিলনী অনুষ্ঠান আগামী ঈদুল আযহার পরের দিন বাদ আসর বিদ্যালয় প্রাঙ্গণে অনুষ্ঠিত হবে। &nbsp;&nbsp;|&nbsp;&nbsp;
+            🔴 ২০০ বছর পূর্তি উদযাপন কমিটির চূড়ান্তকরণ ও ঈদ পুনর্মিলনী অনুষ্ঠান আগামী ঈদুল আযহার পরের দিন বাদ আসর বিদ্যালয় প্রাঙ্গণে অনুষ্ঠিত হবে। &nbsp;&nbsp;|&nbsp;&nbsp;
         </div>
         <div class="ticker-text">
-           🡲 ২০০ বছর পূর্তি উদযাপন কমিটির চূড়ান্তকরণ ও ঈদ পুনর্মিলনী অনুষ্ঠান আগামী ঈদুল আযহার পরের দিন বাদ আসর বিদ্যালয় প্রাঙ্গণে অনুষ্ঠিত হবে। &nbsp;&nbsp;|&nbsp;&nbsp;
+            🔴 ২০০ বছর পূর্তি উদযাপন কমিটির চূড়ান্তকরণ ও ঈদ পুনর্মিলনী অনুষ্ঠান আগামী ঈদুল আযহার পরের দিন বাদ আসর বিদ্যালয় প্রাঙ্গণে অনুষ্ঠিত হবে। &nbsp;&nbsp;|&nbsp;&nbsp;
         </div>
     </div>
 </div>
@@ -314,7 +305,7 @@
 
 <script>
     (function() {
-        // FAST batch year population
+        // Batch year population
         const select = document.getElementById('yearPicker');
         if (select) {
             for (let i = 2035; i >= 1955; i--) {
@@ -325,44 +316,44 @@
             }
         }
 
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbz0SuTL4Ab5nM4zJExAQs70a_Ktqn_H3CkQu0AeLcU6ebpI-2Wat_GjDRS4Sq5fZ5f5eg/exec';
+        // ইউআরএল এখানে বসান
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzgqjUIPc_-GVv3PRtlWexK62XnaDUp3SK2GAo1y0ZoHi9Q0lMoSSvHUn7N6QMjj8LacA/exec';
+        
         const form = document.getElementById('rcsForm');
         const btn = document.getElementById('submitBtn');
         const formBox = document.getElementById('form-box');
         const successBox = document.getElementById('success-ui');
-        let timeoutId = null;
 
-        form.addEventListener('submit', e => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             btn.disabled = true;
             btn.innerHTML = "Processing...";
             
-            timeoutId = setTimeout(() => {
-                if (formBox.style.display !== 'none') {
+            try {
+                // সঠিকভাবে ফর্ম ডাটা পাঠান
+                const formData = new FormData(form);
+                
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.result === 'success') {
                     formBox.style.display = 'none';
                     successBox.style.display = 'block';
-                    btn.disabled = false;
+                } else {
+                    throw new Error(result.message);
                 }
-            }, 1500);
-
-            fetch(scriptURL, { 
-                method: 'POST', 
-                body: new FormData(form),
-                mode: 'no-cors'
-            })
-            .then(() => {
-                if (timeoutId) clearTimeout(timeoutId);
-                formBox.style.display = 'none';
-                successBox.style.display = 'block';
-                btn.disabled = false;
-            })
-            .catch(() => {
-                if (timeoutId) clearTimeout(timeoutId);
-                alert("Submission failed! Check your connection.");
+                
+            } catch (error) {
+                console.error('Error:', error);
+                alert("Submission failed! Please check your internet connection and try again.");
                 btn.disabled = false;
                 btn.innerHTML = "Complete Registration";
-            });
+            }
         });
     })();
 </script>
