@@ -26,33 +26,50 @@
             padding: 20px;
         }
 
-        /* --- Breaking News Ticker --- */
+        /* --- FAST BREAKING NEWS TICKER --- */
         .ticker-wrap {
             position: fixed;
             top: 0;
             width: 100%;
             background: var(--red);
             color: white;
-            padding: 10px 0;
+            padding: 12px 0;
             z-index: 1000;
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
             overflow: hidden;
+            white-space: nowrap;
+        }
+        
+        .ticker-track {
+            display: inline-block;
+            white-space: nowrap;
+            animation: tickerScroll 15s linear infinite;
         }
         
         .ticker-text {
-            white-space: nowrap;
             display: inline-block;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
             font-size: 14px;
-            animation: marquee 20s linear infinite;
-            padding-right: 50px;
+            letter-spacing: 1px;
+            padding-right: 80px;
+        }
+        
+        .ticker-text strong {
+            font-weight: 800;
         }
 
-        @keyframes marquee {
-            0% { transform: translateX(0%); }
-            100% { transform: translateX(-50%); }
+        @keyframes tickerScroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+        
+        /* Hover pause - optional smooth */
+        .ticker-wrap:hover .ticker-track {
+            animation-play-state: paused;
         }
 
         /* --- Premium Container --- */
@@ -227,10 +244,15 @@
 </head>
 <body>
 
-<!-- Breaking News Ticker -->
+<!-- FAST BREAKING NEWS TICKER - SMOOTH & INFINITE -->
 <div class="ticker-wrap">
-    <div class="ticker-text">
-       ২০০ বছর পূর্তি উদযাপন কমিটির চূড়ান্তকরণ ও ঈদ পুনর্মিলনী অনুষ্ঠান আগামী ঈদুল আযহার পরের দিন বাদ আসর বিদ্যালয় প্রাঙ্গণে অনুষ্ঠিত হবে।
+    <div class="ticker-track">
+        <div class="ticker-text">
+           🡲 ২০০ বছর পূর্তি উদযাপন কমিটির চূড়ান্তকরণ ও ঈদ পুনর্মিলনী অনুষ্ঠান আগামী ঈদুল আযহার পরের দিন বাদ আসর বিদ্যালয় প্রাঙ্গণে অনুষ্ঠিত হবে। &nbsp;&nbsp;|&nbsp;&nbsp;
+        </div>
+        <div class="ticker-text">
+           🡲 ২০০ বছর পূর্তি উদযাপন কমিটির চূড়ান্তকরণ ও ঈদ পুনর্মিলনী অনুষ্ঠান আগামী ঈদুল আযহার পরের দিন বাদ আসর বিদ্যালয় প্রাঙ্গণে অনুষ্ঠিত হবে। &nbsp;&nbsp;|&nbsp;&nbsp;
+        </div>
     </div>
 </div>
 
@@ -313,35 +335,29 @@
         form.addEventListener('submit', e => {
             e.preventDefault();
             
-            // Disable button immediately and change text
             btn.disabled = true;
             btn.innerHTML = "Processing...";
             
-            // Set a timeout to ensure max 1.5 seconds response
             timeoutId = setTimeout(() => {
                 if (formBox.style.display !== 'none') {
-                    // Force success after 1.5 seconds if still waiting
                     formBox.style.display = 'none';
                     successBox.style.display = 'block';
                     btn.disabled = false;
                 }
             }, 1500);
 
-            // Send data to Google Sheets
             fetch(scriptURL, { 
                 method: 'POST', 
                 body: new FormData(form),
                 mode: 'no-cors'
             })
             .then(() => {
-                // Clear the timeout if fetch completes early
                 if (timeoutId) clearTimeout(timeoutId);
                 formBox.style.display = 'none';
                 successBox.style.display = 'block';
                 btn.disabled = false;
             })
             .catch(() => {
-                // Clear timeout on error too
                 if (timeoutId) clearTimeout(timeoutId);
                 alert("Submission failed! Check your connection.");
                 btn.disabled = false;
