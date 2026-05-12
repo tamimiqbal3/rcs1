@@ -19,11 +19,15 @@
         body { 
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); 
             margin: 0; 
+            display: flex; 
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center; 
             min-height: 100vh; 
-            padding-top: 60px; /* Space for ticker */
+            padding: 20px;
         }
 
-        /* --- TICKER --- */
+        /* --- FAST BREAKING NEWS TICKER --- */
         .ticker-wrap {
             position: fixed;
             top: 0;
@@ -32,223 +36,328 @@
             color: white;
             padding: 12px 0;
             z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
             overflow: hidden;
             white-space: nowrap;
         }
         
         .ticker-track {
             display: inline-block;
-            animation: tickerScroll 20s linear infinite;
+            white-space: nowrap;
+            animation: tickerScroll 15s linear infinite;
         }
         
         .ticker-text {
             display: inline-block;
             font-weight: 700;
             font-size: 14px;
-            padding-right: 100px;
+            letter-spacing: 1px;
+            padding-right: 80px;
         }
 
         @keyframes tickerScroll {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
-
-        /* --- MAIN LAYOUT --- */
-        .main-wrapper {
-            display: flex;
-            max-width: 1100px;
-            margin: 40px auto;
-            gap: 30px;
-            padding: 0 20px;
-            align-items: flex-start;
+        
+        .ticker-wrap:hover .ticker-track {
+            animation-play-state: paused;
         }
 
-        /* --- Form Section (Left) --- */
+        /* --- Premium Container --- */
         .container { 
-            flex: 1.2;
             background: var(--glass-bg); 
+            width: 100%; 
+            max-width: 500px; 
             padding: 40px; 
             border-radius: 30px; 
             box-shadow: 0 25px 50px rgba(0,0,0,0.1); 
             border-top: 12px solid var(--red); 
             backdrop-filter: blur(10px);
+            margin-top: 50px;
         }
 
-        /* --- Notice Section (Right) --- */
-        .notice-panel {
-            flex: 0.8;
-            background: var(--glass-bg);
-            border-radius: 30px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-            border-top: 12px solid #333;
-            position: sticky;
-            top: 80px;
-        }
-
-        .notice-title {
-            color: #333;
+        header { text-align: center; margin-bottom: 30px; }
+        
+        h1 { 
             font-family: 'Montserrat', sans-serif;
-            font-size: 22px;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
+            color: var(--red); 
+            margin: 0; 
+            font-size: 32px; 
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+        
+        .est { 
+            display: inline-block; 
+            background: #ffebee; 
+            color: var(--red); 
+            padding: 5px 15px; 
+            border-radius: 50px; 
+            font-size: 11px; 
+            font-weight: 700; 
+            margin-top: 8px; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- Form Styling --- */
+        .form-group { margin-bottom: 20px; }
+        
+        label { 
+            display: block; 
+            margin-bottom: 8px; 
+            font-weight: 600; 
+            font-size: 13px; 
+            color: #444; 
+            text-transform: uppercase;
+        }
+        
+        input, select { 
+            width: 100%; 
+            padding: 14px; 
+            border: 2px solid #eaedef; 
+            border-radius: 12px; 
+            font-size: 14px; 
+            outline: none; 
+            transition: 0.3s;
+            background: rgba(255, 255, 255, 0.8);
+        }
+        
+        input:focus, select:focus { 
+            border-color: var(--red); 
+            background: #fff;
+            box-shadow: 0 5px 15px rgba(211, 47, 47, 0.1);
+        }
+
+        /* === PREMIUM RADIO SELECTION === */
+        .radio-options { 
+            display: flex;
+            gap: 20px;
+            background: linear-gradient(135deg, #fefaf8 0%, #fdf4f2 100%);
+            padding: 16px 24px; 
+            border-radius: 20px; 
+            border: 1px solid rgba(211, 47, 47, 0.2);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+        
+        .radio-item {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #1e293b;
+            flex: 1;
+            justify-content: center;
+            padding: 10px 0;
+            border-radius: 50px;
+            transition: all 0.25s ease;
         }
-
-        .notice-card {
-            background: white;
-            padding: 15px;
-            border-radius: 15px;
-            margin-bottom: 15px;
-            border-left: 5px solid var(--red);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
-            transition: 0.3s;
-        }
-
-        .notice-card:hover { transform: scale(1.02); }
-
-        .notice-date { font-size: 12px; color: var(--red); font-weight: 700; }
-        .notice-text { font-size: 14px; color: #444; margin-top: 5px; line-height: 1.4; }
-
-        /* --- Standard Header & Form Elements --- */
-        header { text-align: center; margin-bottom: 30px; }
-        h1 { font-family: 'Montserrat', sans-serif; color: var(--red); margin: 0; font-size: 28px; font-weight: 800; }
-        .est { display: inline-block; background: #ffebee; color: var(--red); padding: 5px 15px; border-radius: 50px; font-size: 11px; font-weight: 700; margin-top: 8px; text-transform: uppercase; }
         
-        .form-group { margin-bottom: 18px; }
-        label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 13px; color: #444; }
-        input, select { width: 100%; padding: 12px; border: 2px solid #eaedef; border-radius: 12px; font-size: 14px; outline: none; transition: 0.3s; }
-        input:focus { border-color: var(--red); }
-
-        .radio-options { display: flex; gap: 15px; background: #fdf4f2; padding: 12px; border-radius: 15px; }
-        .radio-item { display: flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; font-weight: 600; }
+        .radio-item:hover {
+            background: rgba(211, 47, 47, 0.08);
+            transform: translateY(-1px);
+        }
+        
+        .radio-item input {
+            width: 18px;
+            height: 18px;
+            margin: 0;
+            cursor: pointer;
+            accent-color: var(--red);
+        }
+        
+        .radio-item span {
+            cursor: pointer;
+        }
 
         button { 
-            width: 100%; padding: 16px; background: linear-gradient(to right, var(--red), var(--dark-red)); 
-            color: white; border: none; border-radius: 12px; font-size: 17px; font-weight: 700; cursor: pointer; transition: 0.3s;
+            width: 100%; 
+            padding: 16px; 
+            background: linear-gradient(to right, var(--red), var(--dark-red)); 
+            color: white; 
+            border: none; 
+            border-radius: 12px; 
+            font-size: 17px; 
+            font-weight: 700; 
+            cursor: pointer; 
+            margin-top: 15px; 
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(211, 47, 47, 0.3);
+            text-transform: uppercase;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px rgba(211, 47, 47, 0.4);
         }
 
-        #success-ui { display: none; text-align: center; padding: 40px 0; }
+        button:disabled { 
+            background: #b0bec5; 
+            cursor: wait; 
+            box-shadow: none; 
+            transform: none;
+            opacity: 0.8;
+        }
 
-        /* --- RESPONSIVE --- */
-        @media (max-width: 900px) {
-            .main-wrapper { flex-direction: column; align-items: center; }
-            .container, .notice-panel { width: 100%; max-width: 500px; position: static; }
+        /* --- Success UI --- */
+        #success-ui { display: none; text-align: center; }
+        .check-mark { 
+            width: 80px; height: 80px; 
+            background: #e8f5e9; color: #2e7d32; 
+            font-size: 40px; line-height: 80px; 
+            border-radius: 50%; margin: 0 auto 20px; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+        
+        @keyframes fadeInUp { 
+            from { opacity: 0; transform: translateY(30px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        .container, #success-ui { animation: fadeInUp 0.5s ease; }
+
+        @media (max-width: 480px) {
+            .container { padding: 25px; }
+            h1 { font-size: 26px; }
+            .radio-options { 
+                flex-direction: column;
+                gap: 12px;
+                padding: 16px;
+            }
+            .radio-item {
+                justify-content: flex-start;
+                padding-left: 10px;
+            }
         }
     </style>
 </head>
 <body>
 
+<!-- FAST BREAKING NEWS TICKER -->
 <div class="ticker-wrap">
     <div class="ticker-track">
-        <span class="ticker-text">🔴 ২০০ বছর পূর্তি উদযাপন কমিটির চূড়ান্তকরণ ও ঈদ পুনর্মিলনী অনুষ্ঠান আগামী ঈদুল আযহার পরের দিন অনুষ্ঠিত হবে।</span>
-        <span class="ticker-text">🔴 ২০০ বছর পূর্তি উদযাপন কমিটির চূড়ান্তকরণ ও ঈদ পুনর্মিলনী অনুষ্ঠান আগামী ঈদুল আযহার পরের দিন অনুষ্ঠিত হবে।</span>
+        <div class="ticker-text">
+            🔴 ২০০ বছর পূর্তি উদযাপন কমিটির চূড়ান্তকরণ ও ঈদ পুনর্মিলনী অনুষ্ঠান আগামী ঈদুল আযহার পরের দিন বাদ আসর বিদ্যালয় প্রাঙ্গণে অনুষ্ঠিত হবে। &nbsp;&nbsp;|&nbsp;&nbsp;
+        </div>
+        <div class="ticker-text">
+            🔴 ২০০ বছর পূর্তি উদযাপন কমিটির চূড়ান্তকরণ ও ঈদ পুনর্মিলনী অনুষ্ঠান আগামী ঈদুল আযহার পরের দিন বাদ আসর বিদ্যালয় প্রাঙ্গণে অনুষ্ঠিত হবে। &nbsp;&nbsp;|&nbsp;&nbsp;
+        </div>
     </div>
 </div>
 
-<div class="main-wrapper">
-    <!-- LEFT SIDE: FORM -->
-    <div class="container">
-        <div id="form-box">
-            <header>
-                <h1>Rajshahi Collegiate School</h1>
-                <span class="est">Established in 1828</span>
-            </header>
+<div class="container">
+    <div id="form-box">
+        <header>
+            <h1>Rajshahi Collegiate School 
+            </h1>
+            <span class="est">Established in 1828</span>
+        </header>
 
-            <form id="rcsForm">
-                <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" name="Name" placeholder="Enter your full name" required>
+        <form id="rcsForm">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" name="Name" placeholder="Enter your full name" required>
+            </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" name="Email" placeholder="example@mail.com" required>
+            </div>
+            <div class="form-group">
+                <label>Your Identity</label>
+                <div class="radio-options">
+                    <label class="radio-item">
+                        <input type="radio" name="Status" value="Alumnus" checked>
+                        <span>Alumnus</span>
+                    </label>
+                    <label class="radio-item">
+                        <input type="radio" name="Status" value="Current Student">
+                        <span>Current Student</span>
+                    </label>
                 </div>
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" name="Email" placeholder="example@mail.com" required>
-                </div>
-                <div class="form-group">
-                    <label>Your Identity</label>
-                    <div class="radio-options">
-                        <label class="radio-item"><input type="radio" name="Status" value="Alumnus" checked> Alumnus</label>
-                        <label class="radio-item"><input type="radio" name="Status" value="Current Student"> Student</label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Batch Year</label>
-                    <select name="Batch" id="yearPicker" required></select>
-                </div>
-                <div class="form-group">
-                    <label>Current Profession</label>
-                    <input type="text" name="Profession" placeholder="e.g. Engineer" required>
-                </div>
-                <div class="form-group">
-                    <label>Workplace / Institution</label>
-                    <input type="text" name="Institution" placeholder="e.g. Dhaka University" required>
-                </div>
-                <div class="form-group">
-                    <label>WhatsApp Number</label>
-                    <input type="tel" name="WhatsApp" placeholder="+8801xxxxxxxxx" required>
-                </div>
-                <button type="submit" id="submitBtn">Submit NOW</button>
-            </form>
-        </div>
-
-        <div id="success-ui">
-            <h2 style="color: #2e7d32;">✓ Submission Complete!</h2>
-            <p>Our support team will reach out to you very soon.</p>
-        </div>
+            </div>
+            <div class="form-group">
+                <label>Batch Year</label>
+                <select name="Batch" id="yearPicker" required></select>
+            </div>
+            <div class="form-group">
+                <label>Current Profession</label>
+                <input type="text" name="Profession" placeholder="e.g. Engineer / Doctor" required>
+            </div>
+            <div class="form-group">
+                <label>Current Institution / Workplace</label>
+                <input type="text" name="Institution" placeholder="e.g. Google / NASA / Dhaka University" required>
+            </div>
+            <div class="form-group">
+                <label>WhatsApp Number</label>
+                <input type="tel" name="WhatsApp" placeholder="+8801xxxxxxxxx" required>
+            </div>
+            
+            <button type="submit" id="submitBtn">Submit NOW</button>
+        </form>
     </div>
 
-    <!-- RIGHT SIDE: NOTICE BOARD -->
-    <div class="notice-panel">
-        <div class="notice-title">📢 Notice Board</div>
-        
-        <div class="notice-card">
-            <div class="notice-date">15 May, 2026</div>
-            <div class="notice-text">আসন্ন ২০০ বছর পূর্তি অনুষ্ঠান উপলক্ষে সকল প্রাক্তন ছাত্রদের রেজিস্ট্রেশন সম্পন্ন করার অনুরোধ করা হলো।</div>
-        </div>
-
-        <div class="notice-card">
-            <div class="notice-date">20 May, 2026</div>
-            <div class="notice-text">ঈদ পুনর্মিলনী অনুষ্ঠান আগামী ঈদুল আযহার পরের দিন বাদ আসর স্কুল প্রাঙ্গণে অনুষ্ঠিত হবে।</div>
-        </div>
-
-        <div class="notice-card" style="border-left-color: #333;">
-            <div class="notice-date">01 June, 2026</div>
-            <div class="notice-text">নতুন ব্যাচ প্রতিনিধি নিয়োগের জন্য আবেদন আহ্বান করা হচ্ছে। বিস্তারিত জানতে অফিসে যোগাযোগ করুন।</div>
-        </div>
+    <div id="success-ui">
+        <div class="check-mark">✓</div>
+        <h2 style="color: #1b5e20;">Submission Complete!</h2>
+        <p style="color:#555; font-size: 14px; line-height: 1.6;">
+            Thank you for your submission.<br>
+            <b>Our support team will reach out to you very soon.</b>
+        </p>
     </div>
 </div>
 
 <script>
     (function() {
+        // Batch year population
         const select = document.getElementById('yearPicker');
-        for (let i = 2035; i >= 1955; i--) {
-            let opt = document.createElement('option');
-            opt.value = i; opt.innerHTML = i;
-            select.appendChild(opt);
+        if (select) {
+            for (let i = 2035; i >= 1955; i--) {
+                let opt = document.createElement('option');
+                opt.value = i;
+                opt.innerHTML = i;
+                select.appendChild(opt);
+            }
         }
 
+        // আপনার Apps Script URL এখানে বসান
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzg2IwRuM9fuIj3KYrok9fi0NdDypKiZ190TW24AbyV3Som3-FTy1rW1NCqR_K5Hbgy/exec';
+        
         const form = document.getElementById('rcsForm');
         const btn = document.getElementById('submitBtn');
+        const formBox = document.getElementById('form-box');
+        const successBox = document.getElementById('success-ui');
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
+            
             btn.disabled = true;
             btn.innerHTML = "Processing...";
+            
             try {
-                const response = await fetch(scriptURL, { method: 'POST', body: new FormData(form)});
+                const formData = new FormData(form);
+                
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    body: formData
+                });
+                
                 const result = await response.json();
+                
                 if (result.result === 'success') {
-                    document.getElementById('form-box').style.display = 'none';
-                    document.getElementById('success-ui').style.display = 'block';
+                    formBox.style.display = 'none';
+                    successBox.style.display = 'block';
+                } else {
+                    throw new Error(result.message);
                 }
+                
             } catch (error) {
-                alert("Error! Please try again.");
+                console.error('Error:', error);
+                alert("Submission failed! Please check your internet connection and try again.");
                 btn.disabled = false;
-                btn.innerHTML = "Submit NOW";
+                btn.innerHTML = "Complete Registration";
             }
         });
     })();
