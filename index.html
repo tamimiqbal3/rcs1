@@ -3,56 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RCS</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>RCS 200 Years | Official Registration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --red: #d32f2f; --dark-red: #8e0000; --white: #ffffff; }
+        :root { 
+            --red: #d32f2f; 
+            --dark-red: #8e0000; 
+            --white: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.9);
+        }
+        
         * { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
         
-        .container { background: var(--white); width: 100%; max-width: 480px; padding: 35px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); border-top: 10px solid var(--red); animation: fadeInUp 0.6s ease; }
-        header { text-align: center; margin-bottom: 25px; }
-        h1 { color: var(--red); margin: 0; font-size: 28px; }
-        .est { display: inline-block; background: #ffebee; color: var(--red); padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-top: 5px; }
+        body { 
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); 
+            margin: 0; 
+            display: flex; 
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            padding: 20px;
+            overflow-x: hidden;
+        }
 
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 13px; color: #444; }
-        input, select { width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 10px; font-size: 14px; outline: none; }
-        input:focus { border-color: var(--red); }
-
-        .radio-options { display: flex; gap: 15px; background: #fafafa; padding: 10px; border-radius: 10px; border: 1px dashed #ccc; }
-        button { width: 100%; padding: 14px; background: linear-gradient(to right, var(--red), var(--dark-red)); color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 10px; }
-        button:disabled { background: #ccc; cursor: not-allowed; }
-
-        #success-ui { display: none; text-align: center; }
-        .check-mark { width: 60px; height: 60px; background: #e8f5e9; color: #2e7d32; font-size: 30px; line-height: 60px; border-radius: 50%; margin: 0 auto 15px; }
+        /* --- Breaking News Ticker --- */
+        .ticker-wrap {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--red);
+            color: white;
+            padding: 10px 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
         
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .ticker-text {
+            white-space: nowrap;
+            display: inline-block;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+            animation: marquee 20s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* --- Premium Container --- */
+        .container { 
+            background: var(--glass-bg); 
+            width: 100%; 
+            max-width: 500px; 
+            padding: 40px; 
+            border-radius: 30px; 
+            box-shadow: 0 25px 50px rgba(0,0,0,0.1); 
+            border-top: 12px solid var(--red); 
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 0.8s ease; 
+            margin-top: 50px;
+        }
+
+        header { text-align: center; margin-bottom: 30px; }
+        
+        h1 { 
+            font-family: 'Montserrat', sans-serif;
+            color: var(--red); 
+            margin: 0; 
+            font-size: 32px; 
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+        
+        .est { 
+            display: inline-block; 
+            background: #ffebee; 
+            color: var(--red); 
+            padding: 5px 15px; 
+            border-radius: 50px; 
+            font-size: 11px; 
+            font-weight: 700; 
+            margin-top: 8px; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- Form Styling --- */
+        .form-group { margin-bottom: 20px; }
+        
+        label { 
+            display: block; 
+            margin-bottom: 8px; 
+            font-weight: 600; 
+            font-size: 13px; 
+            color: #444; 
+            text-transform: uppercase;
+        }
+        
+        input, select { 
+            width: 100%; 
+            padding: 14px; 
+            border: 2px solid #eaedef; 
+            border-radius: 12px; 
+            font-size: 14px; 
+            outline: none; 
+            transition: 0.3s;
+            background: rgba(255, 255, 255, 0.8);
+        }
+        
+        input:focus, select:focus { 
+            border-color: var(--red); 
+            background: #fff;
+            box-shadow: 0 5px 15px rgba(211, 47, 47, 0.1);
+        }
+
+        .radio-options { 
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            background: #f8f9fa; 
+            padding: 12px; 
+            border-radius: 12px; 
+            border: 1px solid #eee; 
+        }
+        
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        button { 
+            width: 100%; 
+            padding: 16px; 
+            background: linear-gradient(to right, var(--red), var(--dark-red)); 
+            color: white; 
+            border: none; 
+            border-radius: 12px; 
+            font-size: 17px; 
+            font-weight: 700; 
+            cursor: pointer; 
+            margin-top: 15px; 
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(211, 47, 47, 0.3);
+            text-transform: uppercase;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px rgba(211, 47, 47, 0.4);
+        }
+
+        button:disabled { background: #ccc; cursor: not-allowed; box-shadow: none; transform: none; }
+
+        /* --- Success UI --- */
+        #success-ui { display: none; text-align: center; animation: fadeInUp 0.5s ease; }
+        .check-mark { 
+            width: 80px; height: 80px; 
+            background: #e8f5e9; color: #2e7d32; 
+            font-size: 40px; line-height: 80px; 
+            border-radius: 50%; margin: 0 auto 20px; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+        
+        @keyframes fadeInUp { 
+            from { opacity: 0; transform: translateY(30px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 25px; }
+            h1 { font-size: 26px; }
+        }
     </style>
 </head>
 <body>
 
+<!-- Breaking News Ticker -->
+<div class="ticker-wrap">
+    <div class="ticker-text">
+        📢 Important Notice: Registration for RCS 200 Years Celebration is Coming Soon! Stay tuned for more updates. &nbsp;&nbsp;&nbsp;&nbsp; 🔥 200 Years of Legacy (1828 - 2028)
+    </div>
+</div>
+
 <div class="container">
     <div id="form-box">
         <header>
-            <h1>RCS 200 Years</h1>
+            <h1>RCS 200 YEARS</h1>
             <span class="est">Established in 1828</span>
         </header>
 
         <form id="rcsForm">
             <div class="form-group">
                 <label>Full Name</label>
-                <input type="text" name="Name" required>
+                <input type="text" name="Name" placeholder="Enter your full name" required>
             </div>
             <div class="form-group">
                 <label>Email Address</label>
-                <input type="email" name="Email" required>
+                <input type="email" name="Email" placeholder="example@mail.com" required>
             </div>
             <div class="form-group">
-                <label>Identify Yourself</label>
+                <label>Your Identity</label>
                 <div class="radio-options">
-                    <label style="font-size:13px"><input type="radio" name="Status" value="Alumnus" checked> Alumnus</label>
-                    <label style="font-size:13px"><input type="radio" name="Status" value="Current Student"> Student</label>
+                    <label class="radio-item"><input type="radio" name="Status" value="Alumnus" checked> Alumnus</label>
+                    <label class="radio-item"><input type="radio" name="Status" value="Current Student"> Current Student</label>
                 </div>
             </div>
             <div class="form-group">
@@ -60,25 +222,30 @@
                 <select name="Batch" id="yearPicker" required></select>
             </div>
             <div class="form-group">
-                <label>WhatsApp Number</label>
-                <input type="tel" name="WhatsApp" placeholder="+880" required>
+                <label>Current Profession</label>
+                <input type="text" name="Profession" placeholder="e.g. Software Engineer / Student" required>
             </div>
             <div class="form-group">
-                <label>Contact Number</label>
-                <input type="tel" name="Contact" required>
+                <label>WhatsApp Number</label>
+                <input type="tel" name="WhatsApp" placeholder="+8801xxxxxxxxx" required>
             </div>
-            <button type="submit" id="submitBtn">Submit Now</button>
+            
+            <button type="submit" id="submitBtn">Complete Registration</button>
         </form>
     </div>
 
     <div id="success-ui">
         <div class="check-mark">✓</div>
-        <h2>Submission Complete!</h2>
-        <p style="color:#666; font-size: 14px;">Thanks for filling out the form. <br><b>Our support team will email you soon and add you to our official WhatsApp group.</b></p>
+        <h2 style="color: #1b5e20;">Registration Received!</h2>
+        <p style="color:#555; font-size: 14px; line-height: 1.6;">
+            Thanks for being a part of RCS history. <br>
+            <b>Our support team will email you soon and add you to our official WhatsApp group.</b>
+        </p>
     </div>
 </div>
 
 <script>
+    // Populate Years
     const select = document.getElementById('yearPicker');
     for (let i = 2035; i >= 1955; i--) {
         let opt = document.createElement('option');
@@ -86,7 +253,7 @@
         select.appendChild(opt);
     }
 
-    // paste your URL here
+    // Google App Script URL
     const scriptURL = 'https://script.google.com/macros/s/AKfycbzbnkg5kk3HvSM3ofbo7CcAu_7aFKKL-fBKpr03bifan95EAM770N9rlf4qnwR9TLrc/exec'; 
     const form = document.getElementById('rcsForm');
     const btn = document.getElementById('submitBtn');
@@ -94,7 +261,7 @@
     form.addEventListener('submit', e => {
         e.preventDefault();
         btn.disabled = true;
-        btn.innerHTML = "Submitting...";
+        btn.innerHTML = "Processing...";
 
         fetch(scriptURL, { method: 'POST', body: new FormData(form)})
             .then(res => {
@@ -102,9 +269,9 @@
                 document.getElementById('success-ui').style.display = 'block';
             })
             .catch(err => {
-                alert("Error! Check internet or Script URL.");
+                alert("Submission failed! Check your connection.");
                 btn.disabled = false;
-                btn.innerHTML = "Submit Now";
+                btn.innerHTML = "Complete Registration";
             });
     });
 </script>
