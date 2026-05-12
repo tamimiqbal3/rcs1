@@ -282,7 +282,11 @@
             </div>
             <div class="form-group">
                 <label>Current Profession</label>
-                <input type="text" name="Profession" placeholder="e.g. Software Engineer / Student" required>
+                <input type="text" name="Profession" placeholder="e.g. Software Engineer / Teacher" required>
+            </div>
+            <div class="form-group">
+                <label>Current Institution / Workplace</label>
+                <input type="text" name="Institution" placeholder="e.g. Google / ABC School / Dhaka University" required>
             </div>
             <div class="form-group">
                 <label>WhatsApp Number</label>
@@ -316,8 +320,8 @@
             }
         }
 
-        // ইউআরএল এখানে বসান
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzgqjUIPc_-GVv3PRtlWexK62XnaDUp3SK2GAo1y0ZoHi9Q0lMoSSvHUn7N6QMjj8LacA/exec';
+        // আপনার Apps Script URL এখানে বসান
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzg2IwRuM9fuIj3KYrok9fi0NdDypKiZ190TW24AbyV3Som3-FTy1rW1NCqR_K5Hbgy/exec';
         
         const form = document.getElementById('rcsForm');
         const btn = document.getElementById('submitBtn');
@@ -331,7 +335,6 @@
             btn.innerHTML = "Processing...";
             
             try {
-                // সঠিকভাবে ফর্ম ডাটা পাঠান
                 const formData = new FormData(form);
                 
                 const response = await fetch(scriptURL, {
